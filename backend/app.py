@@ -9,6 +9,7 @@ import socket
 import json
 import threading
 import time
+import en_core_web_sm
 
 
 
@@ -16,16 +17,16 @@ app = Flask(__name__)
 CORS(app)  # ✅ Enable CORS
 
 # ✅ Function to get server IP
-def get_ip():
-    hostname = socket.gethostname()
-    return socket.gethostbyname(hostname)
+# def get_ip():
+#     hostname = socket.gethostname()
+#     return socket.gethostbyname(hostname)
 
 # ✅ New Route to Send IP to React Native
-@app.route('/get-ip', methods=['GET'])
-def get_server_ip():
-    return jsonify({"server_ip": f"http://{get_ip()}:5000"})  # 🔹 Returns latest IP
+# @app.route('/get-ip', methods=['GET'])
+# def get_server_ip():
+#     return jsonify({"server_ip": f"http://{get_ip()}:5000"})  # 🔹 Returns latest IP
 
-
+nlp = en_core_web_sm.load()
 
 # ✅ Configure Cloudinary
 cloudinary.config(
@@ -90,6 +91,10 @@ SKILL_LIST = [
 matcher = PhraseMatcher(nlp.vocab)
 patterns = [nlp(skill.lower()) for skill in SKILL_LIST]
 matcher.add("SKILLS", patterns)
+
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({"status": "ok", "message": "Service running"}), 200
 
 @app.route('/parse-resume', methods=['POST'])
 def parse_resume():

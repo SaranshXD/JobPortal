@@ -171,7 +171,7 @@ const ProfileCreationScreen = ({ navigation, route }: ProfileCreationScreenProps
         navigation.goBack();
       } else {
         await setDoc(profileRef, profileData as JobSeekerProfileData);
-        navigation.replace("JobSeekerDashboard");
+        navigation.replace("JobSeekerDashboardScreen");
       }
     } catch (error) {
       console.error("Profile save error:", error);

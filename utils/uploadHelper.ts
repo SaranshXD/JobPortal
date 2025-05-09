@@ -1,15 +1,17 @@
 import axios from "axios";
 import * as FileSystem from "expo-file-system";
 import { Platform } from "react-native";
-import { getServerIP } from "./fetchServerIP";
+// import { getServerIP } from "./fetchServerIP";
 
 // let API_URL = "http://192.168.43.218:5000/upload-logo"; // Flask server
 
+const API_URL = "https://jobportal-c6v0.onrender.com/upload-logo";
+
 export const uploadToCloudinary = async (fileUri: string) => {
   try {
-    const serverIP = await getServerIP();
+    // const serverIP = await getServerIP();
 
-    const API_URL = `${serverIP}/upload-logo`; // ✅ Use dynamic IP
+    // const API_URL = `${serverIP}/upload-logo`; // ✅ Use dynamic IP
     // 🔹 Convert file to Blob (React Native fix)
     const fileInfo = await FileSystem.getInfoAsync(fileUri);
     if (!fileInfo.exists) {

@@ -1,10 +1,12 @@
 import { db } from "../firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
-import { getServerIP } from "./fetchServerIP";
+// import { getServerIP } from "./fetchServerIP";
 
+
+const SERVER_URL = "https://jobportal-c6v0.onrender.com";
 export const uploadResumeAndParse = async (fileUri: string): Promise<{ skills: string[], resumeUrl: string }> => {
   try {
-    const serverIP = await getServerIP(); // 🔹 Fetch latest IP dynamically
+    // const serverIP = await getServerIP(); // 🔹 Fetch latest IP dynamically
 
 
     const formData = new FormData();
@@ -14,7 +16,7 @@ export const uploadResumeAndParse = async (fileUri: string): Promise<{ skills: s
       type: "application/pdf",
     } as any);
 
-    const response = await fetch(`${serverIP}/parse-resume`, {
+    const response = await fetch(`${SERVER_URL}/parse-resume`, {
       method: "POST",
       body: formData,
       headers: { "Content-Type": "multipart/form-data" },
